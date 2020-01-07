@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+import numpy as np
+
+# importing data set
+df = pd.read_csv("housing.csv")
+df.columns = ['Area', 'Price']
+# plotting data
+x = df[['Area']]
+y = df['Price']
+# training the model
+linear_model = LinearRegression()
+linear_model.fit(x, y)
+theta0 = linear_model.intercept_
+theta1 = linear_model.coef_
+# defining the hypothesis
+
+
+def hyp(n):
+    return (theta1*n) + theta0
+
+
+# plotting the hypothesis
+plt.xlabel('Area')
+plt.ylabel('Price')
+title = 'Housing prices model with cost = ' + str(mean_squared_error(df[['Price']], linear_model.predict(x)))
+plt.title(title)
+area = np.array([0, 30])
+price = np.array([hyp(0), hyp(30)])
+plt.scatter(x, y)
+plt.plot(area, price, color='r')
+plt.show()
