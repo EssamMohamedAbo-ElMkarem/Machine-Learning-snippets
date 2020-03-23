@@ -24,4 +24,9 @@ for n, i in enumerate(df['Admitted']):
         plt.scatter(df['Exam1'][n], df['Exam2'][n], color='b', marker='o')
     elif i == 0:
         plt.scatter(df['Exam1'][n], df['Exam2'][n], color='r', marker='x')
+points_x=[x for x in range(20,+100)]
+line_bias = log_reg.intercept_
+line_w = log_reg.coef_.T
+points_y=[(line_w[0]*x+line_bias)/(-1*line_w[1]) for x in points_x]
+plt.plot(points_x, points_y)
 plt.show()
